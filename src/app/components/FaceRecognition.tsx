@@ -135,7 +135,7 @@ const FaceRecognition: React.FC = () => {
             <p className="text-black">Surprised: 3</p>
           </div>
           <div className="bg-gray-200 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold">Other Metrics</h3>
+            <h3 className="text-lg font-semibold text-black">Other Metrics</h3>
             <p className="text-black">Metric 1: Value</p>
             <p className="text-black">Metric 2: Value</p>
           </div>

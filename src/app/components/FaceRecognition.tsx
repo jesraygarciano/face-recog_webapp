@@ -119,21 +119,25 @@ const FaceRecognition: React.FC = () => {
         </div>
         <aside className="hidden lg:block lg:w-1/3 p-4 bg-white shadow-md rounded-lg ml-4">
           <div className="bg-gray-200 p-4 rounded-lg mb-4">
-            <h3 className="text-lg font-semibold">Emotion Detection</h3>
+            <h3 className="text-lg font-semibold text-black">
+              Emotion Detection
+            </h3>
             <p className="text-lg text-yellow-600">{emotionMessage}</p>
           </div>
-          <h2 className="text-xl font-semibold mb-4">Analytics</h2>
+          <h2 className="text-xl font-semibold mb-4 text-black">Analytics</h2>
           <div className="bg-gray-200 p-4 rounded-lg mb-4">
-            <h3 className="text-lg font-semibold">Emotion Statistics</h3>
-            <p>Happy: 10</p>
-            <p>Sad: 5</p>
-            <p>Angry: 2</p>
-            <p>Surprised: 3</p>
+            <h3 className="text-lg font-semibold text-black	">
+              Emotion Statistics
+            </h3>
+            <p className="text-black">Happy: 10</p>
+            <p className="text-black">Sad: 5</p>
+            <p className="text-black">Angry: 2</p>
+            <p className="text-black">Surprised: 3</p>
           </div>
           <div className="bg-gray-200 p-4 rounded-lg">
             <h3 className="text-lg font-semibold">Other Metrics</h3>
-            <p>Metric 1: Value</p>
-            <p>Metric 2: Value</p>
+            <p className="text-black">Metric 1: Value</p>
+            <p className="text-black">Metric 2: Value</p>
           </div>
         </aside>
       </main>

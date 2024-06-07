@@ -63,25 +63,25 @@ const FaceRecognition: React.FC = () => {
 
           switch (emotion) {
             case "happy":
-              setEmotionMessage("HAPPY");
+              setEmotionMessage("幸せ");
               break;
             case "sad":
-              setEmotionMessage("SAD");
+              setEmotionMessage("悲しい");
               break;
             case "angry":
-              setEmotionMessage("ANGRY");
+              setEmotionMessage("怒り");
               break;
             case "fearful":
-              setEmotionMessage("FEARFUL");
+              setEmotionMessage("恐怖");
               break;
             case "disgusted":
-              setEmotionMessage("DISGUSTED?");
+              setEmotionMessage("むかつく");
               break;
             case "surprised":
-              setEmotionMessage("SURPRISED");
+              setEmotionMessage("驚いた");
               break;
             case "neutral":
-              setEmotionMessage("NEUTRAL");
+              setEmotionMessage("ニュートラル");
               break;
             default:
               setEmotionMessage("");
@@ -105,7 +105,7 @@ const FaceRecognition: React.FC = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-100">
       <header className="bg-blue-600 text-white p-4 shadow-md">
-        <h1 className="text-1xl font-bold">Face Recognition Dashboard</h1>
+        <h1 className="text-1xl font-bold">顔認識ダッシュボード</h1>
       </header>
       <main className="flex flex-1 p-4">
         <div className="flex flex-col w-full lg:w-2/3 p-4 bg-white shadow-md rounded-lg">
@@ -119,25 +119,21 @@ const FaceRecognition: React.FC = () => {
         </div>
         <aside className="hidden lg:block lg:w-1/3 p-4 bg-white shadow-md rounded-lg ml-4">
           <div className="bg-gray-200 p-4 rounded-lg mb-4">
-            <h3 className="text-lg font-semibold text-black">
-              Emotion Detection
-            </h3>
+            <h3 className="text-lg font-semibold text-black">感情検出</h3>
             <p className="text-lg text-yellow-600">{emotionMessage}</p>
           </div>
-          <h2 className="text-xl font-semibold mb-4 text-black">Analytics</h2>
+          <h2 className="text-xl font-semibold mb-4 text-black">分析</h2>
           <div className="bg-gray-200 p-4 rounded-lg mb-4">
-            <h3 className="text-lg font-semibold text-black	">
-              Emotion Statistics
-            </h3>
-            <p className="text-black">Happy: 10</p>
-            <p className="text-black">Sad: 5</p>
-            <p className="text-black">Angry: 2</p>
-            <p className="text-black">Surprised: 3</p>
+            <h3 className="text-lg font-semibold text-black	">感情統計</h3>
+            <p className="text-black">ハッピー: 10</p>
+            <p className="text-black">悲しい : 5</p>
+            <p className="text-black">怒り: 2</p>
+            <p className="text-black">驚いた: 3</p>
           </div>
           <div className="bg-gray-200 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold text-black">Other Metrics</h3>
-            <p className="text-black">Metric 1: Value</p>
-            <p className="text-black">Metric 2: Value</p>
+            <h3 className="text-lg font-semibold text-black">その他の指標</h3>
+            <p className="text-black">指標1：価値</p>
+            <p className="text-black">指標2：価値</p>
           </div>
         </aside>
       </main>

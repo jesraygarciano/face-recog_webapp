@@ -71,7 +71,7 @@ const FaceRecognition: React.FC = () => {
               setEmotionMessage("SAD");
               break;
             case "angry":
-              setEmotionMessage("ANYRY");
+              setEmotionMessage("ANGRY");
               break;
             case "fearful":
               setEmotionMessage("FEARFUL");

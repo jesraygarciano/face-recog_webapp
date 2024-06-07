@@ -6,8 +6,7 @@ const FaceRecognition = dynamic(() => import("./components/FaceRecognition"), {
 
 export default function Home() {
   return (
-    <div>
-      <h1>Face Recognition App</h1>
+    <div className="min-h-screen bg-gray-100">
       <FaceRecognition />
     </div>
   );

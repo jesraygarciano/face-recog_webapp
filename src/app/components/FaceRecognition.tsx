@@ -51,8 +51,6 @@ const FaceRecognition: React.FC = () => {
 
         resizedDetections.forEach((detection) => {
           const { x, y, width, height } = detection.detection.box;
-          const ctx = canvas.getContext("2d");
-          ctx?.clearRect(0, 0, canvas.width, canvas.height);
           faceapi.draw.drawDetections(canvas, [detection]);
           faceapi.draw.drawFaceLandmarks(canvas, [detection]);
 
@@ -105,25 +103,40 @@ const FaceRecognition: React.FC = () => {
   }, [modelsLoaded]);
 
   return (
-    <div style={{ position: "relative" }}>
-      <Camera ref={videoRef} onPlay={handleVideoPlay} />
-      <canvas
-        ref={canvasRef}
-        style={{ position: "absolute", top: 0, left: 0 }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 10,
-          color: "white",
-          backgroundColor: "black",
-          padding: "10px",
-          borderRadius: "5px",
-        }}
-      >
-        {emotionMessage}
-      </div>
+    <div className="flex flex-col h-screen bg-gray-100">
+      <header className="bg-blue-600 text-white p-4 shadow-md">
+        <h1 className="text-1xl font-bold">Face Recognition Dashboard</h1>
+      </header>
+      <main className="flex flex-1 p-4">
+        <div className="flex flex-col w-full lg:w-2/3 p-4 bg-white shadow-md rounded-lg">
+          <div className="relative">
+            <Camera ref={videoRef} onPlay={handleVideoPlay} />
+            <canvas
+              ref={canvasRef}
+              className="absolute top-0 left-0 w-full h-full"
+            />
+          </div>
+        </div>
+        <aside className="hidden lg:block lg:w-1/3 p-4 bg-white shadow-md rounded-lg ml-4">
+          <div className="bg-gray-200 p-4 rounded-lg mb-4">
+            <h3 className="text-lg font-semibold">Emotion Detection</h3>
+            <p className="text-lg text-yellow-600">{emotionMessage}</p>
+          </div>
+          <h2 className="text-xl font-semibold mb-4">Analytics</h2>
+          <div className="bg-gray-200 p-4 rounded-lg mb-4">
+            <h3 className="text-lg font-semibold">Emotion Statistics</h3>
+            <p>Happy: 10</p>
+            <p>Sad: 5</p>
+            <p>Angry: 2</p>
+            <p>Surprised: 3</p>
+          </div>
+          <div className="bg-gray-200 p-4 rounded-lg">
+            <h3 className="text-lg font-semibold">Other Metrics</h3>
+            <p>Metric 1: Value</p>
+            <p>Metric 2: Value</p>
+          </div>
+        </aside>
+      </main>
     </div>
   );
 };

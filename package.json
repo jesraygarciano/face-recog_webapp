@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "@tensorflow/tfjs": "^4.20.0",
+    "autoprefixer": "^10.4.19",
+    "encoding": "^0.1.13",
     "face-api.js": "^0.22.2",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwindcss": "^3.4.4"
   },
   "devDependencies": {
     "@types/node": "^20",

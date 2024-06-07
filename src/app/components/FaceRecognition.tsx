@@ -65,25 +65,25 @@ const FaceRecognition: React.FC = () => {
 
           switch (emotion) {
             case "happy":
-              setEmotionMessage("You are smiling, keep shining");
+              setEmotionMessage("HAPPY");
               break;
             case "sad":
-              setEmotionMessage("Don't be sad");
+              setEmotionMessage("SAD");
               break;
             case "angry":
-              setEmotionMessage("You seem angry, take a deep breath");
+              setEmotionMessage("ANYRY");
               break;
             case "fearful":
-              setEmotionMessage("You look scared, everything is fine");
+              setEmotionMessage("FEARFUL");
               break;
             case "disgusted":
-              setEmotionMessage("You look disgusted, what's wrong?");
+              setEmotionMessage("DISGUSTED?");
               break;
             case "surprised":
-              setEmotionMessage("You look surprised, what's the news?");
+              setEmotionMessage("SURPRISED");
               break;
             case "neutral":
-              setEmotionMessage("You look neutral");
+              setEmotionMessage("NEUTRAL");
               break;
             default:
               setEmotionMessage("");

@@ -63,14 +63,31 @@ const FaceRecognition: React.FC = () => {
               expressions[key as keyof faceapi.FaceExpressions] === maxValue
           );
 
-          if (emotion === "happy") {
-            setEmotionMessage("HAPPY");
-          } else if (emotion === "sad") {
-            setEmotionMessage("SAD");
-          } else if (emotion === "angry") {
-            setEmotionMessage("ANGRY");
-          } else {
-            setEmotionMessage("");
+          switch (emotion) {
+            case "happy":
+              setEmotionMessage("You are smiling, keep shining");
+              break;
+            case "sad":
+              setEmotionMessage("Don't be sad");
+              break;
+            case "angry":
+              setEmotionMessage("You seem angry, take a deep breath");
+              break;
+            case "fearful":
+              setEmotionMessage("You look scared, everything is fine");
+              break;
+            case "disgusted":
+              setEmotionMessage("You look disgusted, what's wrong?");
+              break;
+            case "surprised":
+              setEmotionMessage("You look surprised, what's the news?");
+              break;
+            case "neutral":
+              setEmotionMessage("You look neutral");
+              break;
+            default:
+              setEmotionMessage("");
+              break;
           }
         });
       }, 100);

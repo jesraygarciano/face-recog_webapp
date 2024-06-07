@@ -1,11 +1,18 @@
-import React, { useRef, useEffect } from "react";
+import React, {
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 
 interface CameraProps {
   onPlay: () => void;
 }
 
-const Camera: React.FC<CameraProps> = ({ onPlay }) => {
+const Camera = forwardRef<HTMLVideoElement, CameraProps>(({ onPlay }, ref) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useImperativeHandle(ref, () => videoRef.current!);
 
   useEffect(() => {
     const startVideo = async () => {
@@ -31,6 +38,8 @@ const Camera: React.FC<CameraProps> = ({ onPlay }) => {
       style={{ width: "100%", height: "auto" }}
     />
   );
-};
+});
+
+Camera.displayName = "Camera";
 
 export default Camera;

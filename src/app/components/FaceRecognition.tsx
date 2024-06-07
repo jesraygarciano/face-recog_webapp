@@ -125,10 +125,13 @@ const FaceRecognition: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4 text-black">分析</h2>
           <div className="bg-gray-200 p-4 rounded-lg mb-4">
             <h3 className="text-lg font-semibold text-black	">感情統計</h3>
-            <p className="text-black">ハッピー: 10</p>
-            <p className="text-black">悲しい : 5</p>
-            <p className="text-black">怒り: 2</p>
+            <p className="text-black">幸せ: 15</p>
+            <p className="text-black">悲しい : 8</p>
+            <p className="text-black">怒り: 6</p>
+            <p className="text-black">恐怖: 4</p>
+            <p className="text-black">むかつく: 4</p>
             <p className="text-black">驚いた: 3</p>
+            <p className="text-black">ニュートラル: 8</p>
           </div>
           <div className="bg-gray-200 p-4 rounded-lg">
             <h3 className="text-lg font-semibold text-black">その他の指標</h3>

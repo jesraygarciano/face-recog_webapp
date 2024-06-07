@@ -42,9 +42,16 @@ const FaceRecognition: React.FC = () => {
           detections,
           displaySize
         );
-        canvas.getContext("2d")?.clearRect(0, 0, canvas.width, canvas.height);
-        faceapi.draw.drawDetections(canvas, resizedDetections);
-        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+        const ctx = canvas.getContext("2d");
+        ctx?.clearRect(0, 0, canvas.width, canvas.height);
+
+        resizedDetections.forEach((detection) => {
+          const { x, y, width, height } = detection.detection.box;
+          ctx?.clearRect(0, 0, canvas.width, canvas.height);
+          ctx?.drawImage(video, x, y, width, height, x, y, width, height);
+          faceapi.draw.drawDetections(canvas, [detection]);
+          faceapi.draw.drawFaceLandmarks(canvas, [detection]);
+        });
       }, 100);
     }
   };
@@ -60,11 +67,12 @@ const FaceRecognition: React.FC = () => {
   }, [modelsLoaded]);
 
   return (
-    <div>
-      <div className="main">
-        <Camera ref={videoRef} onPlay={handleVideoPlay} />
-        <canvas ref={canvasRef} style={{ position: "absolute" }} />
-      </div>
+    <div style={{ position: "relative" }}>
+      <Camera ref={videoRef} onPlay={handleVideoPlay} />
+      <canvas
+        ref={canvasRef}
+        style={{ position: "absolute", top: 0, left: 0 }}
+      />
     </div>
   );
 };

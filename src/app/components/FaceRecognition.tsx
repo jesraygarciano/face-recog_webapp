@@ -24,27 +24,47 @@ const FaceRecognition: React.FC = () => {
   const handleVideoPlay = async () => {
     if (!modelsLoaded) return;
 
-    const video = videoRef.current!;
-    const canvas = canvasRef.current!;
-    const displaySize = { width: video.width, height: video.height };
-    faceapi.matchDimensions(canvas, displaySize);
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (video && canvas) {
+      const displaySize = {
+        width: video.videoWidth,
+        height: video.videoHeight,
+      };
+      faceapi.matchDimensions(canvas, displaySize);
 
-    setInterval(async () => {
-      const detections = await faceapi
-        .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks()
-        .withFaceDescriptors();
-      const resizedDetections = faceapi.resizeResults(detections, displaySize);
-      canvas.getContext("2d")?.clearRect(0, 0, canvas.width, canvas.height);
-      faceapi.draw.drawDetections(canvas, resizedDetections);
-      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-    }, 100);
+      setInterval(async () => {
+        const detections = await faceapi
+          .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+          .withFaceLandmarks()
+          .withFaceDescriptors();
+        const resizedDetections = faceapi.resizeResults(
+          detections,
+          displaySize
+        );
+        canvas.getContext("2d")?.clearRect(0, 0, canvas.width, canvas.height);
+        faceapi.draw.drawDetections(canvas, resizedDetections);
+        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+      }, 100);
+    }
   };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener("loadedmetadata", handleVideoPlay);
+      return () => {
+        video.removeEventListener("loadedmetadata", handleVideoPlay);
+      };
+    }
+  }, [modelsLoaded]);
 
   return (
     <div>
-      <Camera ref={videoRef} onPlay={handleVideoPlay} />
-      <canvas ref={canvasRef} style={{ position: "absolute" }} />
+      <div className="main">
+        <Camera ref={videoRef} onPlay={handleVideoPlay} />
+        <canvas ref={canvasRef} style={{ position: "absolute" }} />
+      </div>
     </div>
   );
 };

@@ -8,13 +8,17 @@ const FaceRecognition: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [modelsLoaded, setModelsLoaded] = useState(false);
+  const [emotionMessage, setEmotionMessage] = useState("");
 
   useEffect(() => {
     const loadModels = async () => {
       const MODEL_URL = "/models";
-      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-      await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
-      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+      await Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+        faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+      ]);
       setModelsLoaded(true);
     };
 
@@ -37,7 +41,7 @@ const FaceRecognition: React.FC = () => {
         const detections = await faceapi
           .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
           .withFaceLandmarks()
-          .withFaceDescriptors();
+          .withFaceExpressions();
         const resizedDetections = faceapi.resizeResults(
           detections,
           displaySize
@@ -47,10 +51,27 @@ const FaceRecognition: React.FC = () => {
 
         resizedDetections.forEach((detection) => {
           const { x, y, width, height } = detection.detection.box;
+          const ctx = canvas.getContext("2d");
           ctx?.clearRect(0, 0, canvas.width, canvas.height);
-          ctx?.drawImage(video, x, y, width, height, x, y, width, height);
           faceapi.draw.drawDetections(canvas, [detection]);
           faceapi.draw.drawFaceLandmarks(canvas, [detection]);
+
+          const expressions = detection.expressions;
+          const maxValue = Math.max(...Object.values(expressions));
+          const emotion = Object.keys(expressions).find(
+            (key) =>
+              expressions[key as keyof faceapi.FaceExpressions] === maxValue
+          );
+
+          if (emotion === "happy") {
+            setEmotionMessage("HAPPY");
+          } else if (emotion === "sad") {
+            setEmotionMessage("SAD");
+          } else if (emotion === "angry") {
+            setEmotionMessage("ANGRY");
+          } else {
+            setEmotionMessage("");
+          }
         });
       }, 100);
     }
@@ -73,6 +94,19 @@ const FaceRecognition: React.FC = () => {
         ref={canvasRef}
         style={{ position: "absolute", top: 0, left: 0 }}
       />
+      <div
+        style={{
+          position: "absolute",
+          top: 10,
+          left: 10,
+          color: "white",
+          backgroundColor: "black",
+          padding: "10px",
+          borderRadius: "5px",
+        }}
+      >
+        {emotionMessage}
+      </div>
     </div>
   );
 };

@@ -10,6 +10,16 @@ const FaceRecognition: React.FC = () => {
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [emotionMessage, setEmotionMessage] = useState("");
 
+  const [emotionCounts, setEmotionCounts] = useState({
+    happy: 15,
+    sad: 8,
+    angry: 6,
+    fearful: 4,
+    disgusted: 4,
+    surprised: 3,
+    neutral: 8,
+  });
+
   useEffect(() => {
     const loadModels = async () => {
       const MODEL_URL = "/models";
@@ -64,24 +74,52 @@ const FaceRecognition: React.FC = () => {
           switch (emotion) {
             case "happy":
               setEmotionMessage("幸せ");
+              setEmotionCounts((prevCounts) => ({
+                ...prevCounts,
+                happy: prevCounts.happy + 1,
+              }));
               break;
             case "sad":
               setEmotionMessage("悲しい");
+              setEmotionCounts((prevCounts) => ({
+                ...prevCounts,
+                sad: prevCounts.sad + 1,
+              }));
               break;
             case "angry":
               setEmotionMessage("怒り");
+              setEmotionCounts((prevCounts) => ({
+                ...prevCounts,
+                angry: prevCounts.angry + 1,
+              }));
               break;
             case "fearful":
               setEmotionMessage("恐怖");
+              setEmotionCounts((prevCounts) => ({
+                ...prevCounts,
+                fearful: prevCounts.fearful + 1,
+              }));
               break;
             case "disgusted":
               setEmotionMessage("むかつく");
+              setEmotionCounts((prevCounts) => ({
+                ...prevCounts,
+                disgusted: prevCounts.disgusted + 1,
+              }));
               break;
             case "surprised":
               setEmotionMessage("驚いた");
+              setEmotionCounts((prevCounts) => ({
+                ...prevCounts,
+                surprised: prevCounts.surprised + 1,
+              }));
               break;
             case "neutral":
               setEmotionMessage("ニュートラル");
+              setEmotionCounts((prevCounts) => ({
+                ...prevCounts,
+                neutral: prevCounts.neutral + 1,
+              }));
               break;
             default:
               setEmotionMessage("");
@@ -125,13 +163,13 @@ const FaceRecognition: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4 text-black">分析</h2>
           <div className="bg-gray-200 p-4 rounded-lg mb-4">
             <h3 className="text-lg font-semibold text-black	">感情統計</h3>
-            <p className="text-black">幸せ: 15</p>
-            <p className="text-black">悲しい : 8</p>
-            <p className="text-black">怒り: 6</p>
-            <p className="text-black">恐怖: 4</p>
-            <p className="text-black">むかつく: 4</p>
-            <p className="text-black">驚いた: 3</p>
-            <p className="text-black">ニュートラル: 8</p>
+            <p className="text-black">幸せ: {emotionCounts.happy}</p>
+            <p className="text-black">悲しい: {emotionCounts.sad}</p>
+            <p className="text-black">怒り: {emotionCounts.angry}</p>
+            <p className="text-black">恐怖: {emotionCounts.fearful}</p>
+            <p className="text-black">むかつく: {emotionCounts.disgusted}</p>
+            <p className="text-black">驚いた: {emotionCounts.surprised}</p>
+            <p className="text-black">ニュートラル: {emotionCounts.neutral}</p>
           </div>
           <div className="bg-gray-200 p-4 rounded-lg">
             <h3 className="text-lg font-semibold text-black">その他の指標</h3>

@@ -11,13 +11,13 @@ const FaceRecognition: React.FC = () => {
   const [emotionMessage, setEmotionMessage] = useState("");
 
   const [emotionCounts, setEmotionCounts] = useState({
-    happy: 15,
-    sad: 8,
-    angry: 6,
-    fearful: 4,
-    disgusted: 4,
-    surprised: 3,
-    neutral: 8,
+    happy: 0,
+    sad: 0,
+    angry: 0,
+    fearful: 0,
+    disgusted: 0,
+    surprised: 0,
+    neutral: 0,
   });
 
   useEffect(() => {

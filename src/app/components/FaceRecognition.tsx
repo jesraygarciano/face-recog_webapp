@@ -9,6 +9,8 @@ const FaceRecognition: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [emotionMessage, setEmotionMessage] = useState("");
+  const [blinkCount, setBlinkCount] = useState(0);
+  const [nowBlinking, setNowBlinking] = useState(false);
 
   const [emotionCounts, setEmotionCounts] = useState({
     happy: 0,
@@ -34,6 +36,19 @@ const FaceRecognition: React.FC = () => {
 
     loadModels();
   }, []);
+
+  const calculateEAR = (eye: faceapi.Point[]) => {
+    const width = Math.sqrt(
+      Math.pow(eye[3].x - eye[0].x, 2) + Math.pow(eye[3].y - eye[0].y, 2)
+    );
+    const height1 = Math.sqrt(
+      Math.pow(eye[1].x - eye[5].x, 2) + Math.pow(eye[1].y - eye[5].y, 2)
+    );
+    const height2 = Math.sqrt(
+      Math.pow(eye[2].x - eye[4].x, 2) + Math.pow(eye[2].y - eye[4].y, 2)
+    );
+    return (height1 + height2) / (2 * width);
+  };
 
   const handleVideoPlay = async () => {
     if (!modelsLoaded) return;
@@ -125,6 +140,21 @@ const FaceRecognition: React.FC = () => {
               setEmotionMessage("");
               break;
           }
+
+          const leftEye = detection.landmarks.getLeftEye();
+          const rightEye = detection.landmarks.getRightEye();
+          const leftEAR = calculateEAR(leftEye);
+          const rightEAR = calculateEAR(rightEye);
+          const EAR_THRESHOLD = 0.2;
+
+          if (leftEAR < EAR_THRESHOLD && rightEAR < EAR_THRESHOLD) {
+            if (!nowBlinking) {
+              setNowBlinking(true);
+              setBlinkCount((prevCount) => prevCount + 1);
+            }
+          } else {
+            setNowBlinking(false);
+          }
         });
       }, 100);
     }
@@ -172,8 +202,7 @@ const FaceRecognition: React.FC = () => {
           </div>
           <div className="bg-gray-200 p-4 rounded-lg">
             <h3 className="text-lg font-semibold text-black">その他の指標</h3>
-            <p className="text-black">指標1：価値</p>
-            <p className="text-black">指標2：価値</p>
+            <p className="text-black">瞬きの回数: {blinkCount}</p>
           </div>
         </aside>
       </main>
